@@ -11,5 +11,5 @@ jobs:
         - name: Test access to CI workflow file from forked repo
           run: |
             echo "Repository owner:"
-            echo ${{ github.repository_owner }}"
+            echo ${{ github.repository_owner }}
             echo "Accessed CI workflow file successfully!"
