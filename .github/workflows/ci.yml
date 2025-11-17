@@ -31,8 +31,6 @@ jobs:
               then
                 echo "Target directory was modified."
                 echo "run_publish_steps=true" >>$GITHUB_OUTPUT
-                echo "GITHUB_OUTPUT path="
-                echo $GITHUB_OUTPUT
                 exit 0
               fi
             done
@@ -41,3 +39,11 @@ jobs:
             echo "GITHUB_OUTPUT path="
             echo $GITHUB_OUTPUT
           shell: bash
+
+    print_result:
+      if: needs.check-modified-files.outputs.files_modified == 'true'
+      runs-on: ubuntu-latest
+      needs: [check-modified-files]
+      steps:
+        - name: Print result
+          run: echo "The plugin/ directory was modified in this push!"
