@@ -19,11 +19,10 @@ jobs:
           run: |
             git fetch origin main
             changed_files_v1=$(git diff --name-only origin/main)
-            changed_files_v2=$(git diff --name-only HEAD^)
             echo "Changed files old: ${changed_files_v1}"
-            echo "Changed files new: ${changed_files_v2}"
+#            echo "Changed files new: ${changed_files_v2}"
             checked_directory="plugin/"
-            for file in ${changed_files_v2}
+            for file in ${changed_files_v1}
             do
               if [[ ${file} == ${checked_directory}* ]]
               then
