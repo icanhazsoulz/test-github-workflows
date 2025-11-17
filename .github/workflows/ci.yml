@@ -14,14 +14,23 @@ jobs:
       steps:
         - name: Checkout code
           uses: actions/checkout@v4
+          with:
+            fetch-depth: 0
         - name: Check modified files
           id: check_files
           run: |
             git fetch origin main
             changed_files_v1=$(git diff --name-only origin/main)
+            if git merge-base --is-ancestor HEAD origin/main; then
+              echo "Merge has already been performed."
+              echo "run_publish_steps=false" >>$GITHUB_OUTPUT
+              exit 0
+            fi
+            changed_files_v2=$(git diff --name-only HEAD^)
             echo "Changed files old: ${changed_files_v1}"
+            echo "Changed files new: ${changed_files_v2}"
             checked_directory="plugin/"
-            for file in ${changed_files_v1}
+            for file in ${changed_files_v2}
             do
               if [[ ${file} == ${checked_directory}* ]]
               then
