@@ -36,5 +36,6 @@ jobs:
             done
             echo "Target directory was not modified."
             echo "run_publish_steps=false" >>$GITHUB_OUTPUT
-            echo "GITHUB_OUTPUT path=$GITHUB_OUTPUT"
+            echo "GITHUB_OUTPUT path="
+            echo $GITHUB_OUTPUT
           shell: bash
